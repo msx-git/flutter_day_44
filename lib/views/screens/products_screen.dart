@@ -47,18 +47,21 @@ class ProductsScreen extends StatelessWidget {
               ),
             )
           : ListView.separated(
-              padding: const EdgeInsets.only(top: 10,bottom: 50,left: 10,right: 10),
+              padding: const EdgeInsets.only(
+                  top: 10, bottom: 70, left: 10, right: 10),
               itemCount: products.length,
               itemBuilder: (context, index) {
                 final product = products[index];
                 return ChangeNotifierProvider<Product>.value(
                   value: product,
                   builder: (context, child) {
-                    return const ProductItem();
+                    return ProductItem(
+                      product: product,
+                    );
                   },
                 );
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 15),
+              separatorBuilder: (context, index) => const Divider(),
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,25 +14,25 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Savatcha"),
+        title: const Text("Cart"),
       ),
       body: cartController.cart.products.isEmpty
           ? const Center(
-        child: Text("Savatcha bo'sh, mahsulot qo'shing"),
-      )
+              child: Text("Cart is empty"),
+            )
           : ListView.builder(
-        itemCount: cartController.cart.products.length,
-        itemBuilder: (ctx, index) {
-          final product = cartController.cart.products.values
-              .toList()[index]['product'];
-          return ChangeNotifierProvider<Product>.value(
-            value: product,
-            builder: (context, child) {
-              return const ProductItem();
-            },
-          );
-        },
-      ),
+              itemCount: cartController.cart.products.length,
+              itemBuilder: (ctx, index) {
+                final product = cartController.cart.products.values
+                    .toList()[index]['product'];
+                return ChangeNotifierProvider<Product>.value(
+                  value: product,
+                  builder: (context, child) {
+                    return ProductItem(product: product, isInCart: true);
+                  },
+                );
+              },
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         shape: const RoundedRectangleBorder(),

@@ -70,4 +70,24 @@ class ProductsController with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void editProduct({
+    required String id,
+    required String title,
+    required double price,
+  }) {
+    for (var element in _list) {
+      if (element.id == id) {
+        element.title = title;
+        element.price = price;
+        break;
+      }
+    }
+    notifyListeners();
+  }
+
+  void deleteProduct(String productId) {
+    _list.removeWhere((element) => element.id == productId);
+    notifyListeners();
+  }
 }
