@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/products_controller.dart';
 import '../../models/product.dart';
+import '../widgets/add_product_sheet.dart';
 import '../widgets/product_item.dart';
 import 'cart_screen.dart';
 
@@ -12,7 +13,7 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsController = ProductsController();
+    final products = context.watch<ProductsController>().list;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff303030),
@@ -37,19 +38,39 @@ class ProductsScreen extends StatelessWidget {
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        itemCount: productsController.list.length,
-        itemBuilder: (context, index) {
-          final product = productsController.list[index];
-          return ChangeNotifierProvider<Product>.value(
-            value: product,
-            builder: (context, child) {
-              return const ProductItem();
+      body: products.isEmpty
+          ? const Center(
+              child: Text(
+                "No products\n\nTo add a product click  +  button",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            )
+          : ListView.separated(
+              padding: const EdgeInsets.only(top: 10,bottom: 50,left: 10,right: 10),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return ChangeNotifierProvider<Product>.value(
+                  value: product,
+                  builder: (context, child) {
+                    return const ProductItem();
+                  },
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 15),
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) {
+              return AddProductSheet();
             },
           );
         },
-        separatorBuilder: (context, index) => const SizedBox(height: 15),
+        child: const Icon(Icons.add),
       ),
     );
   }

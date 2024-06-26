@@ -13,6 +13,8 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     return ListTile(
+      onTap: () {},
+      hoverColor: Colors.red,
       leading: Container(
         decoration: BoxDecoration(
           color: Color.fromARGB(
@@ -34,8 +36,6 @@ class ProductItem extends StatelessWidget {
       subtitle: Text("\$${product.price}"),
       trailing: Consumer<CartController>(
         builder: (context, controller, child) {
-          print(product.title);
-
           return controller.isInCart(product.id)
               ? Row(
                   mainAxisSize: MainAxisSize.min,
@@ -60,11 +60,9 @@ class ProductItem extends StatelessWidget {
                     ),
                   ],
                 )
-              : IconButton(
-                  onPressed: () {
-                    controller.addToCart(product);
-                  },
-                  icon: const Icon(Icons.shopping_cart_outlined),
+              : GestureDetector(
+                  onTap: () => controller.addToCart(product),
+                  child: const Icon(Icons.shopping_cart_outlined),
                 );
         },
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_day_44/controllers/products_controller.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/cart_controller.dart';
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) {
           return CartController();
+        }),
+        ChangeNotifierProvider(create: (ctx) {
+          return ProductsController();
         }),
       ],
       builder: (context, child) {
