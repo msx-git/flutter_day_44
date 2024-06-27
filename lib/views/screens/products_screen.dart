@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_day_44/views/screens/orders_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/products_controller.dart';
@@ -21,6 +22,17 @@ class ProductsScreen extends StatelessWidget {
         title: const Text("Catalog"),
         centerTitle: true,
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => const OrdersScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.shopping_bag_outlined),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(

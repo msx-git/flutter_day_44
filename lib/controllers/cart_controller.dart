@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/cart.dart';
@@ -27,6 +26,12 @@ class CartController extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Product> getProducts() {
+    return _cart.products.values
+        .map((item) => item["product"] as Product)
+        .toList();
+  }
+
   void removeFromCart(String productId) {
     if (_cart.products.containsKey(productId)) {
       if (_cart.products[productId]["amount"] == 1) {
@@ -39,6 +44,12 @@ class CartController extends ChangeNotifier {
       calculateTotal();
       notifyListeners();
     }
+  }
+
+  void emptyCart() {
+    _cart.products.clear();
+    calculateTotal();
+    notifyListeners();
   }
 
   void calculateTotal() {

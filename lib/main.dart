@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_day_44/controllers/orders_controller.dart';
 import 'package:flutter_day_44/controllers/products_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         }),
         ChangeNotifierProvider(create: (ctx) {
           return ProductsController();
+        }),
+        ChangeNotifierProvider(create: (ctx) {
+          return OrdersController();
         }),
       ],
       builder: (context, child) {

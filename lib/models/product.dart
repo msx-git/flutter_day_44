@@ -12,4 +12,9 @@ class Product extends ChangeNotifier {
     required this.color,
     required this.price,
   });
+
+  @override
+  String toString() {
+    return 'Product{id: $id, title: $title, color: $color, price: $price}';
+  }
 }
